@@ -8,7 +8,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../dio_headers.dart';
 
 class NetworkServices {
-  static String fakeStoreUrl = dotenv.env['FAKE_STORE_BASEURL']!;
+  // static String fakeStoreUrl = dotenv.env['FAKE_STORE_BASEURL']!;
+  static String fakeStoreUrl = "https://api.escuelajs.co/api/v1";
 
   final String _baseUrl = fakeStoreUrl;
 

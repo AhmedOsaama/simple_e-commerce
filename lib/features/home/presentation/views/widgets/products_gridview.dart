@@ -19,62 +19,76 @@ class ProductsGridView extends StatefulWidget {
 }
 
 class _ProductsGridViewState extends State<ProductsGridView> {
-  final ScrollController _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    final cubit = context.read<ProductCubit>();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent && !cubit.isLastPage) {
-        log("Fetching more data.....");
-        cubit.getProducts();           // Fetch more data when scrolling to the bottom
-      }
-    });
-  }
+  // final ScrollController _scrollController = ScrollController();
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   final cubit = context.read<ProductCubit>();
+  //   _scrollController.addListener(() {
+  //     if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent && !cubit.isLastPage) {
+  //       log("Fetching more data.....");
+  //       cubit.getProducts();           // Fetch more data when scrolling to the bottom
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<ProductCubit>();
-    return Expanded(
-      child: BlocBuilder<ProductCubit, ProductsState>(
-        builder: (ctx, state) {
-          if(state is ProductsLoading){
-            if(cubit.products.isEmpty) {
-              return const LoadingIndicator();
-            }
-            return buildProductsList(cubit.products, false);
+    return BlocBuilder<ProductCubit, ProductsState>(
+      builder: (ctx, state) {
+        if(state is ProductsLoading){
+          if(cubit.products.isEmpty) {
+            return SliverToBoxAdapter(child: const LoadingIndicator());
           }
-          if(state is ProductsFailure){
-            return Center(child: Text(state.message),);
-          }
-          if(state is ProductsSuccess) {
-            var products = state.productsList;
-            var isLastPage = state.isLastPage;
-            return buildProductsList(products, isLastPage);
-          }
-          return const SizedBox();
-        },
-      ),
+          return buildProductsList(cubit.products, false);
+        }
+        if(state is ProductsFailure){
+          return SliverToBoxAdapter(child: Center(child: Text(state.message),));
+        }
+        if(state is ProductsSuccess) {
+          var products = state.productsList;
+          var isLastPage = state.isLastPage;
+          return buildProductsList(products, isLastPage);
+        }
+        return SliverToBoxAdapter(child: const SizedBox());
+      },
     );
   }
 
-  GridView buildProductsList(List<Product> products, bool isLastPage) {
-    return GridView.builder(
-            controller: _scrollController,
-              itemCount: products.length + (isLastPage ? 0 : 1),
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  SliverGrid buildProductsList(List<Product> products, bool isLastPage) {
+    return SliverGrid(
+        delegate: SliverChildBuilderDelegate(
+              (context, i) {
+                  if (i == products.length) {
+                  return const LoadingIndicator();
+                }
+                return ProductItemWidget(product: products[i],);
+              },
+          childCount: products.length + (isLastPage ? 0 : 1), // or however many items you have
+        ),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 15,
               mainAxisSpacing: 15,
               childAspectRatio: 160/257
-          ),
-          itemBuilder: (ctx, i) {
-            if (i == products.length) {
-              return const LoadingIndicator();
-            }
-            return ProductItemWidget(product: products[i],);
-          });
+          ));
+    // return GridView.builder(
+    //         controller: _scrollController,
+    //           itemCount: products.length + (isLastPage ? 0 : 1),
+    //       padding: const EdgeInsets.symmetric(horizontal: 20),
+    //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    //           crossAxisCount: 2,
+    //           crossAxisSpacing: 15,
+    //           mainAxisSpacing: 15,
+    //           childAspectRatio: 160/257
+    //       ),
+    //       itemBuilder: (ctx, i) {
+    //         if (i == products.length) {
+    //           return const LoadingIndicator();
+    //         }
+    //         return ProductItemWidget(product: products[i],);
+    //       });
   }
 }

@@ -11,6 +11,7 @@ import 'package:simple_ecommerce/features/checkout/presentation/manager/cart_cub
 import 'package:simple_ecommerce/features/home/data/repos/product_repo.dart';
 import 'package:simple_ecommerce/features/home/presentation/manager/category_cubit.dart';
 import 'package:simple_ecommerce/features/home/presentation/manager/product_cubit.dart';
+import 'package:simple_ecommerce/features/registration/presentation/views/get_started_screen.dart';
 
 import 'core/services/get_it_service.dart';
 import 'features/home/presentation/views/home_screen.dart';
@@ -25,7 +26,7 @@ Future<void> main() async {
     SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp],
     ),
-    dotenv.load(),
+    // dotenv.load(),
   ]);
   // HiveHelper.cartBox.clear();
   setupServiceLocator();
@@ -56,10 +57,14 @@ class MyApp extends StatelessWidget {
           title: 'Simple E-commerce',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            textTheme: TextTheme(
+              
+            ),
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
             useMaterial3: true,
           ),
-          home: const HomeScreen(),
+          // home: const HomeScreen(),
+          home: const GetStartedScreen(),
         ),
       ),
     );
