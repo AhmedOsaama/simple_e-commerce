@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:simple_ecommerce/core/app_navigator.dart';
 import 'package:simple_ecommerce/core/empty_padding.dart';
 import 'package:simple_ecommerce/core/widgets/generic_form_field.dart';

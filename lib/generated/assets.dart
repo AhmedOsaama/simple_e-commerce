@@ -17,6 +17,6 @@ class Assets {
   static const String iconsEdit = 'assets/icons/edit.svg';
   static const String imagesLogo = 'assets/images/logo.svg';
   static const String imagesOrderConfirmed = 'assets/images/order_confirmed.svg';
-  static const String simpleEcommerce = '.env';
+  static const String imagesVisaCardLogo = 'assets/images/visa_card_logo.svg';
 
 }

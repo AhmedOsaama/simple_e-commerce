@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:simple_ecommerce/core/app_navigator.dart';
 import 'package:simple_ecommerce/core/empty_padding.dart';
 import 'package:simple_ecommerce/core/style_utils.dart';
@@ -160,7 +159,7 @@ class _ProductScreenBodyState extends State<ProductScreenBody> {
                     name: product.title,
                     price: product.price!.toDouble(),
                     imageURL: product.images![0]));
-                Fluttertoast.showToast(msg: "Product Added to cart");
+                // Fluttertoast.showToast(msg: "Product Added to cart");
               }),
         ),
       ],

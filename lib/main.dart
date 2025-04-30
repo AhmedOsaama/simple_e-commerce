@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:simple_ecommerce/core/services/hive_helper.dart';
@@ -13,10 +14,12 @@ import 'package:simple_ecommerce/features/home/presentation/manager/category_cub
 import 'package:simple_ecommerce/features/home/presentation/manager/product_cubit.dart';
 import 'package:simple_ecommerce/features/registration/presentation/views/get_started_screen.dart';
 
+import 'core/api_keys.dart';
 import 'core/services/get_it_service.dart';
 import 'features/home/presentation/views/home_screen.dart';
 
 Future<void> main() async {
+  Stripe.publishableKey = ApiKeys.stripePublishKey;
   WidgetsFlutterBinding.ensureInitialized();
   final dir = await getApplicationDocumentsDirectory();
   Hive.init(dir.path);
