@@ -16,7 +16,6 @@ migrate_working_dir/
 *.iws
 .idea/
 
-lib/core/api_keys.dart
 
 lib/core/utils/api_keys.dart
 
